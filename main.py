@@ -1,7 +1,7 @@
 """
 Main pipeline for LiDAR cable detection and catenary fitting.
 
-This version uses robust path handling so it works from any directory.
+version uses robust path handling so it works from any directory.
 """
 
 import os
