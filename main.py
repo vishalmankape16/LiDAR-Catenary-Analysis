@@ -1,11 +1,8 @@
 """
 Main pipeline for LiDAR cable detection and catenary fitting.
-
 version uses robust path handling so it works from any directory.
 """
-
 import os
-
 from src.data_loader import load_data
 from src.preprocessing import remove_outliers, extract_high_points
 from src.clustering import cluster_wires
@@ -13,45 +10,33 @@ from src.catenary_fit import fit_catenary
 from src.visualization import plot_clusters, plot_catenary
 from src.utils import save_results
 
-
 def main():
-    # ==============================
-    # Robust file path (Option 1)
-    # ==============================
+    # Robust file path for medium dataset 
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(BASE_DIR, "data", "lidar_cable_points_medium.parquet")
 
     print("Looking for file at:", file_path)
     print("File exists:", os.path.exists(file_path))
     
-    # ==============================
     # Load data
-    # ==============================
     points = load_data(file_path)
 
-    # ==============================
     # Preprocessing
-    # ==============================
     
     points = remove_outliers(points)
     points = extract_high_points(points)
     print("Points after preprocessing:", len(points))
-    # ==============================
+    
     # Clustering (detect wires)
-    # ==============================
     clusters = cluster_wires(points)
 
     from src.clustering import merge_clusters
     clusters = merge_clusters(clusters)
 
-    # ==============================
     # Visualize clusters
-    # ==============================
     plot_clusters(clusters)
 
-    # ==============================
     # Fit catenary curves
-    # ==============================
     results = []
 
     for i, cluster in enumerate(clusters):
@@ -65,9 +50,7 @@ def main():
             # Plot fitted curve
             plot_catenary(cluster, params)
 
-    # ==============================
     # Save results
-    # ==============================
     output_path = os.path.join(BASE_DIR, "outputs", "results.json")
 
     # Ensure outputs folder exists
