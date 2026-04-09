@@ -16,6 +16,25 @@ This project processes LiDAR point cloud data to:
 6. Visualize results in 3D and 2D projections
 7. Save fitted parameters to JSON
 
+## Design Considerations
+
+1. Modular structure for readability and reuse
+2. Simple pipeline for clarity and maintainability
+3. Uses standard libraries (NumPy, SciPy, scikit-learn)
+
+## Limitations
+
+1. Some datasets have very small sag, making the catenary appear nearly linear
+2. Clustering parameters may require tuning for different datasets
+3. Merge logic is heuristic and can be improved
+
+## Future Improvements
+
+1. Fit catenary in a local coordinate system (full 3D plane)
+2. Improve cluster merging using geometric constraints
+3. Add robust fitting to handle noise
+4. Optimize for large-scale datasets
+
 ## How to Run
 
 ```bash
